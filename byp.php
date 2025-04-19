@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
 $password = "24f290a459a2307b58de73e9c2a22b20"; 
 if(isset($_POST['password'])) {
