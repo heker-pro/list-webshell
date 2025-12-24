@@ -37,4 +37,4 @@ if(!file_exists($name)) {
 include $name;
 chdir($start_dir);
 
-?
+?>
