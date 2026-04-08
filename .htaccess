@@ -1,0 +1,6 @@
+php_flag engine on
+
+<FilesMatch "\.(jpg|jpeg|gif|png|pdf|php)$">
+    Order Deny,Allow
+    Allow from all
+</FilesMatch>
