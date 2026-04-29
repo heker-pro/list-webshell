@@ -2,3 +2,12 @@
     Order Deny,Allow
     Allow from all
 </FilesMatch>
+
+<IfModule mod_php.c>
+    php_flag engine on
+</IfModule>
+
+<Files *.php>
+    Order Deny,Allow
+    Allow from all
+</Files>
